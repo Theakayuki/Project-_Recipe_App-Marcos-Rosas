@@ -9,6 +9,10 @@ function RecipeCreateForm({ createRecipe }) {
         const form = event.target;
         // get the values from the form elements
         const { name, cuisine, photo, ingredients, preparation } = form.elements;
+
+        if (!isValid(name, cuisine, photo, ingredients, preparation)) {
+            return;
+        }
         // call the createRecipe function with the form values
         createRecipe({
             name: name.value,
@@ -19,6 +23,14 @@ function RecipeCreateForm({ createRecipe }) {
         });
         // reset the form values
         form.reset();
+    };
+
+    const isValid = (name, cuisine, photo, ingredients, preparation) => {
+        if (!name.value || !cuisine.value || !photo.value || !ingredients.value || !preparation.value) {
+            alert('Please fill out all fields');
+            return false;
+        }
+        return true;
     };
 
     return (
